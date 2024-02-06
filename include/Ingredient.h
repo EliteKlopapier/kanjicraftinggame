@@ -10,8 +10,8 @@ namespace crafting {
 */
 class Ingredient {
 public:
-    virtual bool operator==(Ingredient& other) = 0;
-    virtual operator std::u32string() = 0;
+    virtual bool operator==(const Ingredient& other) const = 0;
+    virtual operator std::u32string() const = 0;
 };
 
 } // namespace crafting

@@ -63,8 +63,8 @@ Recipe::Recipe(std::u32string recipeString)
     }
 }
 
-bool Recipe::operator==(Ingredient& other) {
-    Recipe* otherRecipe = dynamic_cast<Recipe*>(&other);
+bool Recipe::operator==(const Ingredient& other) const {
+    const Recipe* otherRecipe = dynamic_cast<const Recipe*>(&other);
     if(otherRecipe == nullptr) {
         return false;
     }
@@ -73,7 +73,7 @@ bool Recipe::operator==(Ingredient& other) {
     }
 }
 
-bool Recipe::operator==(Recipe& other) {
+bool Recipe::operator==(const Recipe& other) const {
     if(mOperator.operator_c != other.getOperator().operator_c) {
         return false;
     }
@@ -107,7 +107,7 @@ bool Recipe::operator==(Recipe& other) {
     }
 }
 
-Recipe::operator std::u32string() {
+Recipe::operator std::u32string() const {
     std::u32string recipeString(1, mOperator.operator_c);
     for(int i = 0; i < mIngredients.size(); i++) {
         recipeString += std::u32string(*mIngredients[i]);
@@ -116,3 +116,14 @@ Recipe::operator std::u32string() {
 }
 
 } // namespace crafting
+
+namespace std {
+    size_t hash<crafting::Recipe>::operator()(const crafting::Recipe& recipe) const {
+        u32string recipeString(recipe);
+        size_t hash = 0;
+        for(char32_t c : recipeString) {
+            hash ^= c;
+        }
+        return hash;
+    }
+}

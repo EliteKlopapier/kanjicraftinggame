@@ -4,8 +4,8 @@ namespace crafting {
 
 Character::Character(char32_t character) : mCharacter(character) {}
 
-bool Character::operator==(Ingredient& other) {
-    Character* otherCharacter = dynamic_cast<Character*>(&other);
+bool Character::operator==(const Ingredient& other) const {
+    const Character* otherCharacter = dynamic_cast<const Character*>(&other);
     if(otherCharacter == nullptr) {
         return false;
     }
@@ -17,7 +17,7 @@ bool Character::operator==(Ingredient& other) {
     }
 }
 
-bool Character::operator==(Character& other) {
+bool Character::operator==(const Character& other) const {
     if(mCharacter == other.getCharacter()) {
         return true;
     }
@@ -26,7 +26,7 @@ bool Character::operator==(Character& other) {
     }
 }
 
-Character::operator std::u32string() {
+Character::operator std::u32string() const {
     return std::u32string(1, mCharacter);
 }
 

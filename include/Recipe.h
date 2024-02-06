@@ -51,16 +51,23 @@ public:
     /**
      * @brief Gets the vector of pointers to ingredients used in the recipe.
     */
-    std::vector<std::shared_ptr<Ingredient>>& getIngredients() { return mIngredients; }
+    const std::vector<std::shared_ptr<Ingredient>>& getIngredients() const { return mIngredients; }
     /**
      * @brief Gets the operator used in the recipe.
     */
-    Operator& getOperator() { return mOperator; }
-    bool operator==(Ingredient& other) override;
-    bool operator==(Recipe& other);
-    operator std::u32string() override;
+    Operator& getOperator() const { return mOperator; }
+    bool operator==(const Ingredient& other) const override;
+    bool operator==(const Recipe& other) const;
+    operator std::u32string() const override;
 };
 
 } // namespace crafting
+
+namespace std {
+    template<>
+    struct hash<crafting::Recipe> {
+        size_t operator()(const crafting::Recipe& recipe) const;
+    };
+} // namespace std
 
 #endif // ifndef RECIPE_H

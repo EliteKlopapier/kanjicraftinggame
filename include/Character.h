@@ -18,30 +18,34 @@ private:
     std::vector<char32_t> alternatives;
 public:
     /**
+     * @brief Constructs an empty Character object.
+    */
+    Character() : mCharacter(0) {}
+    /**
      * @brief Constructs a new Character object.
      * @param character The character to represent.
     */
     Character(char32_t character);
-    bool operator==(Ingredient& other);
-    bool operator==(Character& other);
-    operator std::u32string();
-    operator char32_t() { return mCharacter; }
+    bool operator==(const Ingredient& other) const;
+    bool operator==(const Character& other) const;
+    operator std::u32string() const;
+    operator char32_t() const { return mCharacter; }
     /**
      * @brief Gets the character represented by this object.
     */
-    char32_t getCharacter() { return mCharacter; }
+    char32_t getCharacter() const { return mCharacter; }
     /**
      * @brief Gets a vector of the meanings of the character represented by this object.
     */
-    std::vector<std::string>& getMeanings() { return meanings; }
+    const std::vector<std::string>& getMeanings() const { return meanings; }
     /**
      * @brief Gets a vector of the recipes that can be used to obtain the character represented by this object.
     */
-    std::vector<Recipe>& getRecipes() { return recipes; }
+    const std::vector<Recipe>& getRecipes() const { return recipes; }
     /**
      * @brief Gets a vector of characters that are considered equivalent to the character represented by this object.
     */
-    std::vector<char32_t>& getAlternatives() { return alternatives; }
+    const std::vector<char32_t>& getAlternatives() const { return alternatives; }
     /**
      * @brief Adds a meaning to the character represented by this object.
     */
