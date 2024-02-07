@@ -33,3 +33,9 @@
 
 # VS-Code
 .vscode
+
+# Python env
+env/
+
+# Auto generated files
+src/generated/*

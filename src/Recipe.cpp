@@ -33,7 +33,11 @@ Recipe::Recipe(Operator& op, std::initializer_list<std::shared_ptr<Ingredient>> 
 Recipe::Recipe(std::u32string recipeString) 
     : mIngredients()
     , mOperator(operators[recipeString[0]])
+    , approx(recipeString[0] == U'〾')
 {
+    if(approx) {
+        recipeString = recipeString.substr(1);
+    }
     const char32_t* charPtr = recipeString.data();
     if (!operators[*charPtr]) {
         throw std::runtime_error("First character of recipe string must be an operator");
@@ -108,7 +112,11 @@ bool Recipe::operator==(const Recipe& other) const {
 }
 
 Recipe::operator std::u32string() const {
-    std::u32string recipeString(1, mOperator.operator_c);
+    std::u32string recipeString;
+    if(approx) {
+        recipeString += U'〾';
+    }
+    recipeString += mOperator.operator_c;
     for(int i = 0; i < mIngredients.size(); i++) {
         recipeString += std::u32string(*mIngredients[i]);
     }

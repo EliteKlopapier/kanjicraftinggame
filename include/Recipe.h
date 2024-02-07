@@ -33,6 +33,7 @@ class Recipe : public Ingredient {
 private:
     std::vector<std::shared_ptr<Ingredient>> mIngredients;
     Operator& mOperator;
+    bool approx;
 public:
     /**
      * @brief Constructs a new Recipe object.
@@ -56,6 +57,10 @@ public:
      * @brief Gets the operator used in the recipe.
     */
     Operator& getOperator() const { return mOperator; }
+    /**
+     * @brief Gets whether the recipe is an approximation.
+    */
+    bool getApprox() const { return approx; }
     bool operator==(const Ingredient& other) const override;
     bool operator==(const Recipe& other) const;
     operator std::u32string() const override;
