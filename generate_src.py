@@ -6,10 +6,11 @@ with open(config['idsFile'], 'r', encoding='utf-8') as ids, open('src/generated/
     srcOut.write("""
 #include "hashMaps.h"
 #include "loadRecipes.h"
+#include <utility>
 
 namespace loading {
 
-void loadRecipes() {
+std::pair<char32_t, std::u32string> rawRecpieData[] = {
 
 """) 
     for line in ids:
@@ -50,9 +51,19 @@ void loadRecipes() {
                         maxIndex = i
             if not inserted:
                 recipe = recipes[maxIndex][0]
-            srcOut.write(f"\tcrafting::registerRecipe(U'{char}', U\"{recipe}\");\n")
+            srcOut.write(f"\tstd::make_pair(U'{char}', U\"{recipe}\"),\n")
             for r in alternateRecipes:
-                srcOut.write(f"\tcrafting::registerRecipe(U'{char}', U\"{r}\");\n")
-    srcOut.write("}\n}\n")
+                srcOut.write(f"\tstd::make_pair(U'{char}', U\"{r}\"),\n")
+    # remove the last comma
+    srcOut.seek(srcOut.tell() - 3)
+    srcOut.write("\n};\n")
+    srcOut.write("""
+void loadRecipes() {
+    for(auto& r : rawRecpieData) {
+        crafting::registerRecipe(r.first, r.second);
+    }
+}
+} // namespace loading
+""")
     srcOut.close()
     ids.close()
