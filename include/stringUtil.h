@@ -4,6 +4,7 @@
 #include <codecvt>
 #include <locale>
 #include <vector>
+#include <utility>
 
 namespace util {
 
@@ -43,6 +44,39 @@ std::vector<std::basic_string<chartype>> split(const std::basic_string<chartype>
     }
     result.push_back(current);
     return result;
+}
+
+/**
+ * @brief Finds all strings enclosed by a start and end character.
+ * @param str The string to search.
+ * @param start The start character.
+ * @param end The end character.
+ * @return A pair of a vector of strings enclosed by the start and end character and the remaining string.
+*/
+template <typename chartype>
+std::pair<std::vector<std::basic_string<chartype>>, std::basic_string<chartype>> findEnclosedStrings(const std::basic_string<chartype>& str, chartype start, chartype end) {
+    std::vector<std::basic_string<chartype>> result;
+    std::basic_string<chartype> current;
+    std::basic_string<chartype> remaining;
+    bool inEnclosure = false;
+    for (int i = 0; i < str.size(); i++) {
+        chartype c = str[i];
+        if (c == start) {
+            inEnclosure = true;
+            current.clear();
+        }
+        else if (c == end) {
+            inEnclosure = false;
+            result.push_back(current);
+        }
+        else if (inEnclosure) {
+            current += c;
+        }
+        else {
+            remaining += c;
+        }
+    }
+    return {result, remaining};
 }
 
 } // namespace util

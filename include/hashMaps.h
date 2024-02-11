@@ -17,6 +17,22 @@ namespace crafting {
     bool registerRecipe(char32_t result, std::u32string recipeString);
 
     /**
+     * @brief Registers meanings to a given character.
+     * @param character The character to register.
+     * @param meanings A vector of the meanings of the character.
+     * @return True if the meanings were successfully registered, false otherwise.
+    */
+    bool registerMeanings(char32_t character, std::vector<std::string> meanings);
+
+    /**
+     * @brief Registers meanings to a given character.
+     * @param character The character to register.
+     * @param meanings A comma or semicolon seperated list of the meanings of the character.
+     * @return True if the meanings were successfully registered, false otherwise.
+    */
+    bool registerMeanings(char32_t character, std::string meanings);
+
+    /**
      * @brief Gets the character with the given UTF-32 code point from the hash map.
      * @return A pointer to the character with the given code point.
     */

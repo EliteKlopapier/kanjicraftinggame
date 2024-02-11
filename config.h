@@ -7,6 +7,9 @@
 // Path to IDS file (containing recipes). Better not change this.
 #define IDS_PATH "resources/ids/IDS_content_only.TXT"
 
+// Path to readings file (which also contains meanings). Better not change this.
+#define READINGS_PATH "resources/unihan/Unihan_Readings.txt"
+
 /*  ~~~~ Preferred country specific variant for recipes ~~~~
             G = China
             H = Hong Kong SAR
@@ -20,7 +23,14 @@
             B = UK
             V = Vietnam
 */
-#define PREFERRED_VARIANT 'U'
+#define PREFERRED_CHARACTER_VARIANT 'U'
+
+/* ~~~~ Additional definitions ~~~~
+            J = Japanese
+            C = Cantonese
+            N = NONE
+*/
+#define ADDITIONAL_DEFINITIONS 'N'
 
 
 #endif // ifndef CONFIG_H
