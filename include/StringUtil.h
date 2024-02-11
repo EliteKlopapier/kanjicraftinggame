@@ -1,25 +1,40 @@
 #ifndef STRING_UTIL_H
-#define STRINGUTIL_H
+#define STRING_UTIL_H
 
 #include <codecvt>
 #include <locale>
+#include <vector>
 
 namespace util {
 
 /**
  * @brief Converts a UTF-32 string to a UTF-8 string.
 */
-std::string u32_to_u8(const std::u32string& str) {
-    std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> convert;
-    return convert.to_bytes(str);
-}
+extern std::string u32_to_u8(const std::u32string& str);
 
 /**
  * @brief Converts a UTF-8 string to a UTF-32 string.
 */
-std::u32string u8_to_u32(const std::string& str) {
-    std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> convert;
-    return convert.from_bytes(str);
+extern std::u32string u8_to_u32(const std::string& str);
+
+/**
+ * @brief Splits a string by a delimiter.
+*/
+template <typename chartype>
+std::vector<std::basic_string<chartype>> split(const std::basic_string<chartype>& str, chartype delimiter) {
+    std::vector<std::basic_string<chartype>> result;
+    std::basic_string<chartype> current;
+    for (chartype c : str) {
+        if (c == delimiter) {
+            result.push_back(current);
+            current.clear();
+        }
+        else {
+            current += c;
+        }
+    }
+    result.push_back(current);
+    return result;
 }
 
 } // namespace util

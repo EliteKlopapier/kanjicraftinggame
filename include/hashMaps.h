@@ -15,6 +15,12 @@ namespace crafting {
      * @return True if the recipe was successfully registered, false otherwise.
     */
     bool registerRecipe(char32_t result, std::u32string recipeString);
+
+    /**
+     * @brief Gets the character with the given UTF-32 code point from the hash map.
+     * @return A pointer to the character with the given code point.
+    */
+    std::shared_ptr<Character> getCharacter(char32_t character);
 }
 
 #endif // ifndef HASH_MAPS_H

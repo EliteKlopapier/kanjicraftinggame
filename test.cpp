@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Character.h"
-#include "StringUtil.h"
+#include "stringUtil.h"
 #include "hashMaps.h"
 #include "loadRecipes.h"
 

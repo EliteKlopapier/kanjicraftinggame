@@ -1,5 +1,8 @@
 #include "Recipe.h"
 #include "Character.h"
+#include "stringUtil.h"
+#include "hashMaps.h"
+#include <iostream>
 
 namespace crafting {
 
@@ -30,9 +33,26 @@ Recipe::Recipe(Operator& op, std::initializer_list<std::shared_ptr<Ingredient>> 
     }
 }
 
+static int findRecipeSubstrLength(const std::u32string& recipeString, int startPos) {
+    //std::cout << "Finding recipe substr length for " << util::u32_to_u8(recipeString) << " at " << startPos << std::endl;
+    Operator& op = operators[recipeString[startPos]];
+    //std::cout << "Found operator " << op.operator_c << " with " << op.num_ingredients << " ingredients" << std::endl;
+    int pos = startPos + 1;
+    for(int i = 0; i < op.num_ingredients; i++) {
+        if(operators[recipeString[pos]]) {
+            pos += findRecipeSubstrLength(recipeString, pos);
+        }
+        else {
+            pos++;
+        }
+    }
+    //std::cout << "Found recipe substr length for " << util::u32_to_u8(recipeString) << " at " << startPos << " to be " << pos - startPos << std::endl;
+    return pos - startPos;
+}
+
 Recipe::Recipe(std::u32string recipeString) 
     : mIngredients()
-    , mOperator(operators[recipeString[0]])
+    , mOperator(recipeString[0] == U'〾' ? operators[recipeString[1]] : operators[recipeString[0]])
     , approx(recipeString[0] == U'〾')
 {
     if(approx) {
@@ -40,24 +60,25 @@ Recipe::Recipe(std::u32string recipeString)
     }
     const char32_t* charPtr = recipeString.data();
     if (!operators[*charPtr]) {
-        throw std::runtime_error("First character of recipe string must be an operator");
+        throw std::runtime_error("First character of recipe string must be an operator, but instead is " + util::u32_to_u8(std::u32string(1, *charPtr)));
     }
     charPtr++;
     int pos = 1;
     for(int i = 0; i < mOperator.num_ingredients; i++) {
         if(pos >= recipeString.size()) {
-            throw std::runtime_error("Not enough ingredients in recipe string");
+            throw std::runtime_error("Not enough ingredients in recipe string.");// Debug info: currently constructung " + util::u32_to_u8(recipeString) + ". Pos is at " + std::to_string(pos) + " and recipeString.size() is " + std::to_string(recipeString.size()) + ". i is at " + std::to_string(i) + ".");
         }
         else if(operators[*charPtr]) {
-            if(pos + operators[*charPtr].num_ingredients > recipeString.size()) {
-                throw std::runtime_error("Not enough ingredients in recipe string");
+            int len = findRecipeSubstrLength(recipeString, pos);
+            if(pos + len > recipeString.size()) {
+                throw std::runtime_error("Not enough ingredients in recipe string. Pos is at " + std::to_string(pos) + " and recipeString.size() is " + std::to_string(recipeString.size()) + ". i is at " + std::to_string(i) + ". len is at " + std::to_string(len) + ". While constructing " + util::u32_to_u8(recipeString) + ".");
             }
-            mIngredients.emplace_back(new Recipe(recipeString.substr(pos, operators[*charPtr].num_ingredients + 1)));
-            charPtr += operators[*charPtr].num_ingredients + 1;
-            pos += operators[*charPtr].num_ingredients + 1;
+            mIngredients.emplace_back(new Recipe(recipeString.substr(pos, len)));
+            pos += len;
+            charPtr += len;
         }
         else {
-            mIngredients.emplace_back(new Character(*charPtr));
+            mIngredients.emplace_back(crafting::getCharacter(*charPtr));
             charPtr++;
             pos++;
         }
