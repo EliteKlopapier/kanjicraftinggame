@@ -18,6 +18,12 @@ extern std::string u32_to_u8(const std::u32string& str);
 extern std::u32string u8_to_u32(const std::string& str);
 
 /**
+ * @brief Converts a Unicode code point to the character it represents.
+ * @param unicode The Unicode code point in the format U+<hex>.
+*/
+extern char32_t unicodeToChar(const std::string& unicode);
+
+/**
  * @brief Splits a string by a delimiter.
 */
 template <typename chartype>
