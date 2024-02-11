@@ -1,4 +1,4 @@
-#include "loadRecipes.h"
+#include "loading.h"
 #include "config.h"
 #include "stringUtil.h"
 #include "hashMaps.h"
@@ -69,7 +69,7 @@ void loadRecipes() {
                 for(int i = 0; i < recipes.size(); i++) {
                     std::string r = recipes[i].first;
                     std::string flags = recipes[i].second;
-                    if(flags.find(PREFERRED_VARIANT) != std::string::npos) {
+                    if(flags.find(PREFERRED_CHARACTER_VARIANT) != std::string::npos) {
                         recipeString = r;
                         inserted = true;
                         break;

@@ -2,7 +2,7 @@
 #include "Character.h"
 #include "stringUtil.h"
 #include "hashMaps.h"
-#include "loadRecipes.h"
+#include "loading.h"
 
 using namespace crafting;
 

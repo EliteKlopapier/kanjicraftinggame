@@ -5,6 +5,8 @@ namespace loading {
 
 extern void loadRecipes();
 
+extern void loadMeanings();
+
 }
 
 
