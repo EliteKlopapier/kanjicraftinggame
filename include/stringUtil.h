@@ -24,14 +24,16 @@ extern std::u32string u8_to_u32(const std::string& str);
 extern char32_t unicodeToChar(const std::string& unicode);
 
 /**
- * @brief Splits a string by a delimiter.
+ * @brief Splits a string by delimiters.
+ * @param str The string to split.
+ * @param delimiters A string with the delimiters to split the string by.
 */
 template <typename chartype>
-std::vector<std::basic_string<chartype>> split(const std::basic_string<chartype>& str, chartype delimiter) {
+std::vector<std::basic_string<chartype>> split(const std::basic_string<chartype>& str, std::basic_string<chartype> delimiters) {
     std::vector<std::basic_string<chartype>> result;
     std::basic_string<chartype> current;
     for (chartype c : str) {
-        if (c == delimiter) {
+        if (delimiters.find(c) != std::basic_string<chartype>::npos) {
             result.push_back(current);
             current.clear();
         }

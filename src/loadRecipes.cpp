@@ -34,7 +34,7 @@ void loadRecipes() {
             if(line[0] == '#') {
                 continue;
             }
-            std::vector<std::string> columns = util::split<char>(line, '\t');
+            std::vector<std::string> columns = util::split<char>(line, "\t");
             std::string character = columns[1];
             std::vector<std::pair<std::string, std::string>> recipes;
             std::vector<std::string> alternateRecipes;
