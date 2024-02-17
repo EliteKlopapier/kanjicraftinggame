@@ -25,6 +25,12 @@ extern std::u32string u8_to_u32(const std::string& str);
 extern char32_t unicodeToChar(const std::string& unicode);
 
 /**
+ * @brief Converts a character to the Unicode code point it represents.
+ * @param c The character to convert.
+*/
+extern std::string charToUnicode(char32_t c);
+
+/**
  * @brief Splits a string by delimiters.
  * @param str The string to split.
  * @param delimiters A string with the delimiters to split the string by.

@@ -17,4 +17,10 @@ char32_t unicodeToChar(const std::string& unicode) {
     return std::stoi(unicode.substr(2), nullptr, 16);
 }
 
+std::string charToUnicode(char32_t c) {
+    std::stringstream ss;
+    ss << std::hex << c;
+    return "U+" + ss.str();
+}
+
 } // namespace util
