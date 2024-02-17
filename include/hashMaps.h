@@ -5,8 +5,8 @@
 #include "Character.h"
 
 namespace crafting {
-    // A map to look up the result of a recipe.
-    extern std::unordered_map<Recipe, std::shared_ptr<Character>> recipeMap;
+    // A map to look up the vector with the possible result of a recipe. Almost always contains only one character.
+    extern std::unordered_map<Recipe, std::vector<std::shared_ptr<Character>>> recipeMap;
     // A map to look up the data related to a UTF-32 character.
     extern std::unordered_map<char32_t, std::shared_ptr<Character>> characterMap;
 

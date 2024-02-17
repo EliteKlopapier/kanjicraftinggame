@@ -5,7 +5,7 @@
 
 namespace crafting {
 
-    std::unordered_map<Recipe, std::shared_ptr<Character>> recipeMap;
+    std::unordered_map<Recipe, std::vector<std::shared_ptr<Character>>> recipeMap;
 
     std::unordered_map<char32_t, std::shared_ptr<Character>> characterMap;
 
@@ -14,14 +14,16 @@ namespace crafting {
             // std::cerr << "Recipe contains unknown character." << std::endl;
             return false;
         }
-        if(recipeMap[recipeString]) {
-            //std::cerr << "Recipe already registered." << std::endl;
-            return false;
+        for(std::shared_ptr<Character> c : recipeMap[recipeString]) {
+            if(c->getCharacter() == result) {
+                std::cerr << "Recipe already registered." << std::endl;
+                return false;
+            }
         }
         std::shared_ptr<Character> character = getCharacter(result);
         try {
             Recipe recipe(recipeString);
-            recipeMap[recipe] = character;
+            recipeMap[recipe].push_back(character);
             character->addRecipe(recipe);
             return true;
         }
