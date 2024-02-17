@@ -99,7 +99,8 @@ bool Recipe::operator==(const Ingredient& other) const {
 }
 
 bool Recipe::operator==(const Recipe& other) const {
-    if(mOperator.operator_c != other.getOperator().operator_c) {
+    if(mOperator.operator_c != other.getOperator().operator_c
+            || approx != other.getApprox()) {
         return false;
     }
     else {
