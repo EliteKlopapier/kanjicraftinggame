@@ -4,21 +4,11 @@
 
 #include "Character.h"
 #include "Recipe.h"
+#include "Inventory.h"
 #include <memory>
 #include <map>
 
 namespace player {
-
-struct ItemStack {
-    // The item in the stack.
-    std::shared_ptr<crafting::Character> item;
-    // The amount of the item in the stack.
-    unsigned int amount;
-
-    bool operator<(const ItemStack& other) const {
-        return item->getCharacter() < other.item->getCharacter();
-    }
-};
 
 /**
  * @brief The Player class represents a player in the game.
@@ -35,8 +25,8 @@ private:
     unsigned int mInk;
     // The player's maximum ink.
     unsigned int mMaxInk;
-    // The player's inventory as a map that attributes an item's amount to each character in the inventory.
-    std::map<char32_t, unsigned int> inventory;
+    // The player's inventory.
+    inventory::Inventory inventory;
 public:
     /**
      * @brief Constructs a player with the given health, maximum health, gold and ink.
@@ -78,7 +68,7 @@ public:
      * @brief Gets the player's inventory.
      * @return The player's inventory.
     */
-    std::map<char32_t, unsigned int> getInventory() const { return inventory; }
+    inventory::Inventory& getInventory() { return inventory; }
 
     /**
      * @brief Sets the player's health.
@@ -110,46 +100,6 @@ public:
     */
     void setMaxInk(unsigned int maxInk) { mMaxInk = maxInk; }
 
-    /**
-     * @brief Adds an item to the player's inventory.
-     * @param item The item to add.
-     * @param amount The amount of the item to add.
-    */
-    void addItem(char32_t item, unsigned int amount = 1);
-
-    /**
-     * @brief Removes an item from the player's inventory.
-     * @param item The item to remove.
-     * @param amount The amount of the item to remove, or all if negative.
-    */
-    void removeItem(char32_t item, int amount = -1);
-
-    /**
-     * @brief Clears the player's inventory.
-    */
-    void clearInventory();
-
-    /**
-     * @brief Checks if the player has the given amount of the given item in their inventory.
-     * @param item The item to check for.
-     * @param amount The amount of the item to check for.
-     * @return True if the player has the item, false otherwise.
-    */  
-    bool hasItem(char32_t item, unsigned int amount = 1) const;
-
-    /**
-     * @brief Checks if the player has the given ingredient or the components thereof in their inventory.
-     * @param ingredient The ingredient to check for.
-     * @return True if the player has the ingredient, false otherwise.
-    */
-    bool hasIngredients(const crafting::Ingredient& ingredient) const;
-
-    /**
-     * @brief Removes the given ingredients from the player's inventory.
-     * @param ingredient The ingredients to remove.
-     * @return True if the ingredients were successfully removed, false otherwise.
-    */
-    bool removeIngredients(const crafting::Ingredient& ingredient);
 
     /**
      * @brief Crafts the given recipe from the items in the player's inventory, if available.
