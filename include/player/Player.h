@@ -5,8 +5,10 @@
 #include "Character.h"
 #include "Recipe.h"
 #include "Inventory.h"
+#include "Modifier.h"
 #include <memory>
 #include <map>
+#include <vector>
 
 namespace player {
 
@@ -17,21 +19,19 @@ class Player {
 private:
     // The player's health.
     unsigned int mHealth;
-    // The player's maximum health.
-    unsigned int mMaxHealth;
     // The player's gold, resource used for trading.
     unsigned int mGold;
     // The player's ink, resource used for crafting.
     unsigned int mInk;
-    // The player's maximum ink.
-    unsigned int mMaxInk;
     // The player's inventory.
     inventory::Inventory inventory;
+    // The player's modifiers.
+    std::vector<Modifier> modifiers;
 public:
     /**
      * @brief Constructs a player with the given health, maximum health, gold and ink.
     */
-    Player(unsigned int health = 10, unsigned int maxHealth = 10, unsigned int gold = 0, unsigned int ink = 0, unsigned int maxInk = 10);
+    Player(unsigned int maxHealth = 10, unsigned int maxInk = 10, unsigned int health = 10, unsigned int gold = 0, unsigned int ink = 5);
 
     /**
      * @brief Gets the player's health.
@@ -43,7 +43,7 @@ public:
      * @brief Gets the player's maximum health.
      * @return The player's maximum health.
     */
-    unsigned int getMaxHealth() const { return mMaxHealth; }
+    unsigned int getMaxHealth() const;
 
     /**
      * @brief Gets the player's amount of gold.
@@ -62,7 +62,13 @@ public:
      * @return The player's maximum ink.
     */
 
-    unsigned int getMaxInk() const { return mMaxInk; }
+    unsigned int getMaxInk() const;
+
+    /**
+     * @brief Gets the player's armor.
+     * @return The player's armor.
+    */
+    unsigned int getArmor() const;
 
     /**
      * @brief Gets the player's inventory.
@@ -77,12 +83,6 @@ public:
     void setHealth(unsigned int health) { mHealth = health; }
 
     /**
-     * @brief Sets the player's maximum health.
-     * @param maxHealth The player's new maximum health.
-    */
-    void setMaxHealth(unsigned int maxHealth) { mMaxHealth = maxHealth; }
-
-    /**
      * @brief Sets the player's gold.
      * @param gold The player's new amount of gold.
     */
@@ -95,11 +95,27 @@ public:
     void setInk(unsigned int ink) { mInk = ink; }
 
     /**
-     * @brief Sets the player's maximum ink.
-     * @param maxInk The player's new maximum ink.
+     * @brief Adds a modifier to the player.
+     * @param name The name or source of the modifier.
+     * @param stat The stat that the modifier affects.
+     * @param value The value by which the stat is modified.
+     * @return A pointer to the added modifier.
     */
-    void setMaxInk(unsigned int maxInk) { mMaxInk = maxInk; }
+    Modifier* addModifier(const std::string& name, Stats stat, int value);
 
+    /**
+     * @brief Adds a modifier to the player.
+     * @param modifier The modifier to add.
+     * @return A pointer to the added modifier.
+    */
+    Modifier* addModifier(const Modifier& modifier);
+
+    /**
+     * @brief Removes a modifier from the player.
+     * @param modifierPtr A pointer to the modifier to remove.
+     * @return True if the modifier was successfully removed, false otherwise.
+    */
+    bool removeModifier(Modifier* modifierPtr);
 
     /**
      * @brief Crafts the given recipe from the items in the player's inventory, if available.
