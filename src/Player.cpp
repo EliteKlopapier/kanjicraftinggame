@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "hashMaps.h"
 
-namespace game {
+namespace player {
 
 Player::Player(unsigned int health, unsigned int maxHealth, unsigned int gold, unsigned int ink, unsigned int maxInk)
     : mHealth(health)
@@ -92,4 +92,4 @@ bool Player::craft(const crafting::Recipe& recipe, unsigned int variation) {
 
 
 
-} // namespace game
+} // namespace player

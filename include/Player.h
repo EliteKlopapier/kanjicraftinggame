@@ -7,7 +7,7 @@
 #include <memory>
 #include <map>
 
-namespace game {
+namespace player {
 
 struct ItemStack {
     // The item in the stack.
@@ -161,6 +161,6 @@ public:
 
 };
 
-} // namespace game
+} // namespace player
 
 #endif // PLAYER_H
