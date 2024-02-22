@@ -13,7 +13,12 @@ private:
     // The maximum capacity of the inventory. Unlimited if 0.
     unsigned int capacity;
 public:
-    
+    /**
+     * @brief Constructs an inventory with the given capacity.
+     * @param capacity The maximum capacity of the inventory.
+    */
+    Inventory(unsigned int capacity = 0) : capacity(capacity) {}
+
     /**
      * @brief Adds an item to the inventory.
      * @param item The item to add.
