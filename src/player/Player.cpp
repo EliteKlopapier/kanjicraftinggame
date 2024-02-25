@@ -36,6 +36,33 @@ unsigned int Player::getArmor() const {
     return getStat(Stats::ARMOR, 0);
 }
 
+void Player::changeHealth(int amount) {
+    mHealth += amount;
+    if(mHealth < 0) {
+        mHealth = 0;
+    }
+    if(mHealth > getMaxHealth()) {
+        mHealth = getMaxHealth();
+    }
+}
+
+void Player::changeGold(int amount) {
+    mGold += amount;
+    if(mGold < 0) {
+        mGold = 0;
+    }
+}
+
+void Player::changeInk(int amount) {
+    mInk += amount;
+    if(mInk < 0) {
+        mInk = 0;
+    }
+    if(mInk > getMaxInk()) {
+        mInk = getMaxInk();
+    }
+}
+
 Modifier* Player::addModifier(const std::string& name, Stats stat, int value) {
     modifiers.emplace_back(name, stat, value);
     return &modifiers.back();

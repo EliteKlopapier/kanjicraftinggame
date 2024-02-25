@@ -1,1 +1,1 @@
-g++ test.cpp src/crafting/*.cpp src/loading/*.cpp src/inventory/*.cpp src/util/*.cpp src/player/*.cpp -I include -I include/crafting -I include/player -I include/loading -I include/inventory -I include/util -I . -o test.exe
+g++ test.cpp src/crafting/*.cpp src/loading/*.cpp src/inventory/*.cpp src/util/*.cpp src/player/*.cpp -I include -I include/crafting -I include/player -I include/loading -I include/inventory -I include/util -I include/items -I . -o test.exe

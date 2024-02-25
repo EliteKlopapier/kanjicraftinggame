@@ -3,6 +3,7 @@
 
 #include "Ingredient.h"
 #include "Recipe.h"
+#include "Functionality.h"
 #include <vector>
 
 namespace crafting {
@@ -16,6 +17,7 @@ private:
     std::vector<std::string> meanings;
     std::vector<Recipe> recipes;
     std::vector<char32_t> alternatives;
+    std::vector<std::unique_ptr<items::Functionality>> functionalities;
 public:
     /**
      * @brief Constructs an empty Character object.
@@ -60,6 +62,18 @@ public:
      * @param recipeString The string representation of the recipe to add.
     */
     void addRecipe(std::u32string recipeString);
+
+    /**
+     * @brief Adds a functionality to the character represented by this object.
+    */
+    void addFunctionality(std::unique_ptr<items::Functionality> functionality) {
+        functionalities.push_back(std::move(functionality));
+    }
+
+    /**
+     * @brief Gets a vector of the functionalities of the character represented by this object.
+    */
+    const std::vector<std::unique_ptr<items::Functionality>>& getFunctionalities() const { return functionalities; }
 };
 
 } // namespace crafting

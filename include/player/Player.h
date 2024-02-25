@@ -101,6 +101,21 @@ public:
     void setInk(unsigned int ink) { mInk = ink; }
 
     /**
+     * @brief Changes the player's health by the given amount.
+    */
+    void changeHealth(int amount);
+
+    /**
+     * @brief Changes the player's gold by the given amount.
+    */
+    void changeGold(int amount);
+
+    /**
+     * @brief Changes the player's ink by the given amount.
+    */
+    void changeInk(int amount);
+
+    /**
      * @brief Adds a modifier to the player.
      * @param name The name or source of the modifier.
      * @param stat The stat that the modifier affects.
