@@ -14,34 +14,26 @@ Player::Player(unsigned int maxHealth, unsigned int maxInk, unsigned int health,
     }
 { }
 
-unsigned int Player::getMaxHealth() const {
-    int maxHealth = 0;
+int Player::getStat(Stats stat, int min) const {
+    int value = min;
     for(const auto& modifier : modifiers) {
-        if(modifier.stat == Stats::MAX_HEALTH) {
-            maxHealth += modifier.value;
+        if(modifier.getStat() == stat) {
+            value += modifier.getValue();
         }
     }
-    return maxHealth > 0 ? maxHealth : 1;
+    return value >= min ? value : min;
+}
+
+unsigned int Player::getMaxHealth() const {
+    return getStat(Stats::MAX_HEALTH, 1);
 }
 
 unsigned int Player::getMaxInk() const {
-    int maxInk = 0;
-    for(const auto& modifier : modifiers) {
-        if(modifier.stat == Stats::MAX_INK) {
-            maxInk += modifier.value;
-        }
-    }
-    return maxInk > 0 ? maxInk : 1;
+    return getStat(Stats::MAX_INK, 1);
 }
 
 unsigned int Player::getArmor() const {
-    int armor = 0;
-    for(const auto& modifier : modifiers) {
-        if(modifier.stat == Stats::ARMOR) {
-            armor += modifier.value;
-        }
-    }
-    return armor >= 0 ? armor : 0;
+    return getStat(Stats::ARMOR, 0);
 }
 
 Modifier* Player::addModifier(const std::string& name, Stats stat, int value) {

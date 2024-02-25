@@ -27,6 +27,12 @@ private:
     inventory::Inventory inventory;
     // The player's modifiers.
     std::vector<Modifier> modifiers;
+    /**
+     * @brief Gets the value of the given stat, taking into account the modifiers.^
+     * @param stat The stat to get.
+     * @param min The minimum value of the stat.
+    */
+    int getStat(Stats stat, int min) const;
 public:
     /**
      * @brief Constructs a player with the given health, maximum health, gold and ink.
