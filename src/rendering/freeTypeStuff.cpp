@@ -3,8 +3,5 @@
 namespace rendering {
 
 FT_Library freeTypeLib;
-FT_Face hanaA;
-FT_Face hanaB;
-FT_Face hanaC;
-
+FT_Face fontFace;
 } // namespace rendering

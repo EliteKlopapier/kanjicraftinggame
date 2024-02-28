@@ -3,6 +3,7 @@
 #include "config.h"
 #include <stdexcept>
 #include <iostream>
+#include <string>
 
 namespace loading {
 
@@ -11,35 +12,14 @@ void loadFreeType() {
     if(error) {
         throw std::runtime_error("Failed to initialize FreeType library");
     }
-    error = FT_New_Face(rendering::freeTypeLib, "resources/fonts/HanaMinA.otf", 0, &rendering::hanaA);
+    error = FT_New_Face(rendering::freeTypeLib, (std::string("resources/fonts/NotoSerif") + FONT + "-Regular.otf").c_str(), 0, &rendering::fontFace);
     if(error) {
-        throw std::runtime_error("Failed to load font HanaMinA");
+        throw std::runtime_error("Failed to load font.");
     }
-    error = FT_New_Face(rendering::freeTypeLib, "resources/fonts/HanaMinB.otf", 0, &rendering::hanaB);
-    if(error) {
-        throw std::runtime_error("Failed to load font HanaMinB");
-    }
-    error = FT_New_Face(rendering::freeTypeLib, "resources/fonts/HanaMinC.otf", 0, &rendering::hanaC);
-    if(error) {
-        throw std::runtime_error("Failed to load font HanaMinC");
-    }
-    // //error = FT_Set_Pixel_Sizes(rendering::hanaA, 600, 300);
-    // error = FT_Set_Char_Size(rendering::hanaA, 0, 16 * 64, 300, 300);
-    // if(error) {
-    //     throw std::runtime_error("Failed to set character size for HanaMinA");
-    // }
-    // error = FT_Set_Char_Size(rendering::hanaB, 0, 16 * 64, 300, 300);
-    // if(error) {
-    //     throw std::runtime_error("Failed to set character size for HanaMinB");
-    // }
-    // error = FT_Set_Char_Size(rendering::hanaC, 0, 16 * 64, 300, 300);
-    // if(error) {
-    //     throw std::runtime_error("Failed to set character size for HanaMinC");
-    // }
 
     #ifdef VERBOSE
     std::cout << "Successfully loaded FreeType and fonts with " 
-        << (rendering::hanaA->num_glyphs + rendering::hanaB->num_glyphs + rendering::hanaC->num_glyphs) 
+        << (rendering::fontFace->num_glyphs + rendering::fontFace->num_glyphs + rendering::fontFace->num_glyphs) 
         << " glyphs." << std::endl;
     #endif
 }

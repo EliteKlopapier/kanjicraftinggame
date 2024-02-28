@@ -32,5 +32,12 @@
 */
 #define ADDITIONAL_DEFINITIONS 'N'
 
+/* ~~~~ Font ~~~~
+        JP = Japanese
+        TC = Traditional Chinese
+        SC = Simplified Chinese
+*/
+#define FONT "JP"
+
 
 #endif // ifndef CONFIG_H
