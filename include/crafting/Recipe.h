@@ -64,6 +64,8 @@ public:
     bool operator==(const Ingredient& other) const override;
     bool operator==(const Recipe& other) const;
     operator std::u32string() const override;
+
+    rendering::Bitmap render(int width, int height) const override;
 };
 
 } // namespace crafting

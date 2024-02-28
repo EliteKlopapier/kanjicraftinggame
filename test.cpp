@@ -11,20 +11,22 @@ using namespace crafting;
 
 int main() {
 
-    //registerRecipe(U'木', U"⿻十𠆢");
-
-    //loading::loadRecipes();
-    //loading::loadMeanings();
+    loading::loadRecipes();
+    loading::loadMeanings();
     loading::loadFreeType();
 
-    FT_Error error = FT_Load_Char(rendering::hanaA, U'木', FT_LOAD_RENDER);
+    getCharacter(U'兩')->getRecipes()[0].render(200,200).printToFile("test.bmp");
+    //getCharacter(U'𠓜')->render(200, 200).printToFile("test.bmp");
+
+    /*FT_Set_Pixel_Sizes(rendering::fontFace, 200, 200);
+    FT_Error error = FT_Load_Char(rendering::fontFace, U'𠆢', FT_LOAD_RENDER);
     if(error) {
-        std::cout << "Failed to load character 木 because " << error << std::endl;
+        std::cout << "Failed to load character 𠆢 because " << error << std::endl;
     }
-    FT_Bitmap bitmap = rendering::hanaA->glyph->bitmap;
+    FT_Bitmap bitmap = rendering::fontFace->glyph->bitmap;
     std::cout << "Width: " << bitmap.width << ", rows: " << bitmap.rows << ", pitch: " << bitmap.pitch << ", num_grays: " << bitmap.num_grays << ", pixel_mode: " << (int)bitmap.pixel_mode << std::endl;
     
-    rendering::Bitmap(bitmap).rotate180().printToFile("test.bmp");
+    rendering::Bitmap(bitmap).printToFile("test.bmp");*/
 
     /*getCharacter(U'木')->addFunctionality(std::make_unique<items::HealthConsumable>(10));
     std::cout << "Functionality of 木: " << getCharacter(U'木')->getFunctionalities()[0]->getDescription() << std::endl;

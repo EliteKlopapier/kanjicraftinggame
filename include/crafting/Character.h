@@ -31,6 +31,9 @@ public:
     bool operator==(const Ingredient& other) const;
     bool operator==(const Character& other) const;
     operator std::u32string() const;
+
+    rendering::Bitmap render(int width, int height) const override;
+
     operator char32_t() const { return mCharacter; }
     /**
      * @brief Gets the character represented by this object.

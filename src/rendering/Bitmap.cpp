@@ -79,7 +79,7 @@ Bitmap Bitmap::joinHorizontally(const Bitmap& other) const {
 Bitmap Bitmap::placeOnCanvas(int canvasWidth, int canvasHeight, int x, int y) const {
     Bitmap result(canvasWidth, canvasHeight);
     if(x < 0 || y < 0 || x + width > canvasWidth || y + height > canvasHeight) {
-        throw std::invalid_argument("Bitmap does not fit on canvas");
+        throw std::invalid_argument("Bitmap does not fit on canvas: placing bitmap with dimensions " + std::to_string(width) + "x" + std::to_string(height) + " at (" + std::to_string(x) + ", " + std::to_string(y) + ") on canvas with dimensions " + std::to_string(canvasWidth) + "x" + std::to_string(canvasHeight) + " is out of bounds.");
     }
     for(int i = 0; i < height; i++) {
         memcpy(result.pixels + (canvasWidth * (y + i) + x), pixels + width * i, width);
