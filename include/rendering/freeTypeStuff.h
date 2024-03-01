@@ -8,7 +8,9 @@
 namespace rendering {
 
 extern FT_Library freeTypeLib;
-extern FT_Face fontFace;
+extern FT_Face fontFaceMain;
+extern FT_Face fontFaceBackUp1;
+extern FT_Face fontFaceBackUp2;
 
 } // namespace rendering
 

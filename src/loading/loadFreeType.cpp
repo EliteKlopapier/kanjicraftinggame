@@ -12,15 +12,27 @@ void loadFreeType() {
     if(error) {
         throw std::runtime_error("Failed to initialize FreeType library");
     }
-    error = FT_New_Face(rendering::freeTypeLib, (std::string("resources/fonts/NotoSerif") + FONT + "-Regular.otf").c_str(), 0, &rendering::fontFace);
+    error = FT_New_Face(rendering::freeTypeLib, (std::string("resources/fonts/NotoSerif") + FONT + "-Regular.otf").c_str(), 0, &rendering::fontFaceMain);
     if(error) {
-        throw std::runtime_error("Failed to load font.");
+        throw std::runtime_error("Failed to load main font.");
+    }
+    error = FT_New_Face(rendering::freeTypeLib, "resources/fonts/BabelStoneHan.ttf", 0, &rendering::fontFaceBackUp1);
+    if(error) {
+        throw std::runtime_error("Failed to load backup font 1.");
+    }
+    error = FT_New_Face(rendering::freeTypeLib, "resources/fonts/BabelStoneHanPUA.ttf", 0, &rendering::fontFaceBackUp2);
+    if(error) {
+        throw std::runtime_error("Failed to load backup font 2.");
     }
 
     #ifdef VERBOSE
-    std::cout << "Successfully loaded FreeType and fonts with " 
-        << (rendering::fontFace->num_glyphs + rendering::fontFace->num_glyphs + rendering::fontFace->num_glyphs) 
-        << " glyphs." << std::endl;
+    std::cout << "Successfully loaded FreeType with " 
+        << rendering::fontFaceMain->num_glyphs 
+        << " glyphs in main font, "
+        << rendering::fontFaceBackUp1->num_glyphs
+        << " glyphs in backup font 1, and "
+        << rendering::fontFaceBackUp2->num_glyphs
+        << " glyphs in backup font 2." << std::endl;
     #endif
 }
 
