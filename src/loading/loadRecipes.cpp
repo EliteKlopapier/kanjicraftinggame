@@ -3,7 +3,6 @@
 #include "stringUtil.h"
 #include "hashMaps.h"
 #include <fstream>
-#include <string>
 #include <vector>
 #include <string>
 #ifdef VERBOSE 
@@ -16,22 +15,22 @@ namespace loading {
  * @brief Loads the recipes from the IDS file.
  * @throws std::runtime_error if the IDS file could not be opened or if the file is invalid.
 */
-void loadRecipes() {
+void loadRecipes(std::string path) {
     std::ifstream idsFile;
-    idsFile.open(IDS_PATH);
+    idsFile.open(path);
     std::string line;
     if(!idsFile) {
-        idsFile.open(std::string("../") + IDS_PATH); // if executable is in build directory
+        idsFile.open(std::string("../") + path); // if executable is in build directory
     }
     if(idsFile) {
         #ifdef VERBOSE
-            std::cout << "Loading recipes from " << IDS_PATH << std::endl;
+            std::cout << "Loading recipes from " << path << std::endl;
             int numSuccess = 0;
         #endif
         int lineNum = 0;
         while(std::getline(idsFile, line)) {
             lineNum++;
-            if(line[0] == '#') {
+            if(line[0] == '#' || (lineNum == 1 && line[3] == '#')) {
                 continue;
             }
             std::vector<std::string> columns = util::split<char>(line, "\t");
@@ -115,4 +114,9 @@ void loadRecipes() {
     }
 }
 
+void loadRecipes() {
+    loadRecipes("resources/ids/IDS_content_only.TXT");
+    loadRecipes("resources/ids/IDS_PUA.TXT");
 }
+
+} // namespace loading
