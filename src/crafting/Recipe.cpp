@@ -155,13 +155,13 @@ rendering::Bitmap Recipe::render(int width, int height) const {
 		case U'⿲': {
 			int rest = width % 3;
 			return mIngredients[0]->render(width/3 + (rest ? 1 : 0), height).joinHorizontally(
-				   mIngredients[1]->render(width/3 + (rest==2) ? 1 : 0, height).joinHorizontally(
+				   mIngredients[1]->render(width/3 + ((rest==2) ? 1 : 0), height).joinHorizontally(
 				   mIngredients[2]->render(width/3, height)));
 		}
         case U'⿳': {
             int rest = height % 3;
 			return mIngredients[0]->render(width, height/3 + (rest ? 1 : 0)).joinVertically(
-				   mIngredients[1]->render(width, height/3 + (rest==2) ? 1 : 0).joinVertically(
+				   mIngredients[1]->render(width, height/3 + ((rest==2) ? 1 : 0)).joinVertically(
 				   mIngredients[2]->render(width, height/3)));
         }
         case U'⿴': return mIngredients[0]->render(width, height).overlay(mIngredients[1]->render(width/2, height/2).placeOnCanvas(width, height));
