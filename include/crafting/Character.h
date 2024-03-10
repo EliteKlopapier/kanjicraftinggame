@@ -18,6 +18,16 @@ private:
     std::vector<Recipe> recipes;
     std::vector<char32_t> alternatives;
     std::vector<std::unique_ptr<items::Functionality>> functionalities;
+    /**
+     * Bit 0: Can be placed like ⿸
+     * Bit 1: Can be placed like ⿹
+     * Bit 2: Can be placed like ⿺
+     * Bit 3: Can be placed like ⿴
+     * Bit 4: Can be placed like ⿵
+     * Bit 5: Can be placed like ⿶
+     * Bit 6: Can be placed like ⿷
+    */
+    uint8_t placementFlags;
 public:
     /**
      * @brief Constructs an empty Character object.
@@ -51,6 +61,17 @@ public:
      * @brief Gets a vector of characters that are considered equivalent to the character represented by this object.
     */
     const std::vector<char32_t>& getAlternatives() const { return alternatives; }
+    /**
+     * @brief Whether the character can be placed like the given Ideographic Description Character in a recipe.
+     * @param character The Ideographic Description Character to compare with; one of ⿸, ⿹, ⿺ ⿴, ⿵, ⿶, or ⿷.
+    */
+    bool canBePlacedLike(char32_t character) const;
+    /**
+     * @brief Sets whether the character can be placed like the given Ideographic Description Character in a recipe.
+     * @param character The Ideographic Description Character to set the flag for; one of ⿸, ⿹, ⿺, ⿴, ⿵, ⿶, or ⿷.
+     * @param value The value to set the flag to.
+    */
+    void setPlacementFlag(char32_t character, bool value);
     /**
      * @brief Adds a meaning to the character represented by this object.
     */

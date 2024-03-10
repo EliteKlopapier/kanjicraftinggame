@@ -1,4 +1,5 @@
 #include "Character.h"
+#include "byteUtil.h"
 
 namespace crafting {
 
@@ -28,6 +29,32 @@ bool Character::operator==(const Character& other) const {
 
 Character::operator std::u32string() const {
     return std::u32string(1, mCharacter);
+}
+
+bool Character::canBePlacedLike(char32_t character) const {
+    switch(character) {
+        case U'⿸': return placementFlags & 1;
+        case U'⿹': return placementFlags & 2;
+        case U'⿺': return placementFlags & 4;
+        case U'⿴': return placementFlags & 8;
+        case U'⿵': return placementFlags & 16;	
+        case U'⿶': return placementFlags & 32;	
+        case U'⿷': return placementFlags & 64;	
+        default: return false;
+    }
+}
+
+void Character::setPlacementFlag(char32_t character, bool value) {
+    switch(character) {
+        case U'⿸': util::setBit(&placementFlags, 0, value); return;
+        case U'⿹': util::setBit(&placementFlags, 1, value); return;
+        case U'⿺': util::setBit(&placementFlags, 2, value); return;
+        case U'⿴': util::setBit(&placementFlags, 3, value); return;	
+        case U'⿵': util::setBit(&placementFlags, 4, value); return;		
+        case U'⿶': util::setBit(&placementFlags, 5, value); return;			
+        case U'⿷': util::setBit(&placementFlags, 6, value); return;
+        default: return;
+    }
 }
 
 rendering::Bitmap Character::render(int width, int height) const {

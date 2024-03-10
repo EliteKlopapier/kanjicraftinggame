@@ -31,6 +31,10 @@ Recipe::Recipe(Operator& op, std::initializer_list<std::shared_ptr<Ingredient>> 
     if(mIngredients.size() != mOperator.num_ingredients) {
         throw std::runtime_error("Number of ingredients does not match operator");
     }
+    Ingredient* firstIng = mIngredients[0].get();
+    if(Character* firstChar = dynamic_cast<Character*>(firstIng)) {
+        firstChar->setPlacementFlag(op.operator_c, true);
+    }
 }
 
 static int findRecipeSubstrLength(const std::u32string& recipeString, int startPos) {
@@ -82,6 +86,10 @@ Recipe::Recipe(std::u32string recipeString)
             charPtr++;
             pos++;
         }
+    }
+    Ingredient* firstIng = mIngredients[0].get();
+    if(Character* firstChar = dynamic_cast<Character*>(firstIng)) {
+        firstChar->setPlacementFlag(mOperator.operator_c, true);
     }
     if(pos < recipeString.size()) {
         throw std::runtime_error("Too many ingredients in recipe string. Pos is at " + std::to_string(pos) + " and recipeString.size() is " + std::to_string(recipeString.size()));

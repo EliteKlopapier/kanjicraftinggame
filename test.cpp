@@ -15,8 +15,15 @@ int main() {
     loading::loadMeanings();
     loading::loadFreeType();
 
-    getCharacter(U'兩')->getRecipes()[0].render(200,200).printToFile("test.bmp");
-    //getCharacter(U'𠓜')->render(200, 200).printToFile("test.bmp");
+    // for(auto& c : characterMap) {
+    //     if(c.second->canBePlacedLike(U'⿺')) {
+    //         std::cout << util::u32_to_u8(std::u32string(1, c.second->getCharacter())) << "\n";
+    //     }
+    // }
+
+    //
+    getCharacter(U'乸')->getRecipes()[0].render(200,200).printToFile("test.bmp");
+    //getCharacter(U'')->render(200, 200).printToFile("test.bmp");
 
     /*FT_Set_Pixel_Sizes(rendering::fontFace, 200, 200);
     FT_Error error = FT_Load_Char(rendering::fontFace, U'𠆢', FT_LOAD_RENDER);
