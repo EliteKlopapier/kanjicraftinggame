@@ -37,11 +37,23 @@ private:
 public:
     /**
      * @brief Constructs a new Recipe object.
+     * @param ingredient A single ingredient to be used in the recipe.
+    */
+    Recipe(char32_t ingredient);
+    /**
+     * @brief Constructs a new Recipe object.
      * @param op The operator to use in the recipe.
      * @param ingredients The ingredients to use in the recipe.
-     * @throws std::runtime_error If the number of ingredients does not match the operator.
+     * @throws std::runtime_error If the number of ingredients does not match the operator or the operator char is invalid.
     */
-    Recipe(Operator& op, std::initializer_list<std::shared_ptr<Ingredient>> ingredients);
+    Recipe(char32_t op, std::initializer_list<std::shared_ptr<Ingredient>> ingredients);
+    /**
+     * @brief Constructs a new Recipe object.	
+     * @param op The operator to use in the recipe.
+     * @param ingredients The ingredients to use in the recipe.
+     * @throws std::runtime_error If the number of ingredients does not match the operator or the operator char is invalid.
+    */
+    Recipe(char32_t op, const std::vector<std::shared_ptr<Ingredient>>& ingredients);
     /**
      * @brief Constructs a new Recipe object.
      * @param recipeString The string representation of the recipe.

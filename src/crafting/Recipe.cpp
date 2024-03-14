@@ -24,16 +24,35 @@ std::unordered_map<char32_t, Operator> operators{
     {U'⿻', {U'⿻', 2, false}}
 };
 
-Recipe::Recipe(Operator& op, std::initializer_list<std::shared_ptr<Ingredient>> ingredients) 
+Recipe::Recipe(char32_t op, std::initializer_list<std::shared_ptr<Ingredient>> ingredients) 
     : mIngredients(ingredients) 
-    , mOperator(op)
+    , mOperator(operators[op])
 {
+    if(!op) {
+        throw std::runtime_error("Invalid operator character.");
+    }
     if(mIngredients.size() != mOperator.num_ingredients) {
         throw std::runtime_error("Number of ingredients does not match operator");
     }
     Ingredient* firstIng = mIngredients[0].get();
     if(Character* firstChar = dynamic_cast<Character*>(firstIng)) {
-        firstChar->setPlacementFlag(op.operator_c, true);
+        firstChar->setPlacementFlag(mOperator.operator_c, true);
+    }
+}
+
+Recipe::Recipe(char32_t op, const std::vector<std::shared_ptr<Ingredient>>& ingredients) 
+    : mIngredients(ingredients)
+    , mOperator(operators[op])
+{
+    if(!op) {
+        throw std::runtime_error("Invalid operator character.");
+    }
+    if(mIngredients.size() != mOperator.num_ingredients) {
+        throw std::runtime_error("Number of ingredients does not match operator");
+    }
+    Ingredient* firstIng = mIngredients[0].get();
+    if(Character* firstChar = dynamic_cast<Character*>(firstIng)) {
+        firstChar->setPlacementFlag(mOperator.operator_c, true);
     }
 }
 
