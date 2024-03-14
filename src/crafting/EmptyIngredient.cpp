@@ -21,7 +21,7 @@ rendering::Bitmap EmptyIngredient::render(int width, int height) const {
     return rendering::Bitmap(width, height);
 }
 
-std::shared_ptr<Ingredient> EmptyIngredient::addLeft(std::shared_ptr<Character> character) const {
+std::shared_ptr<Ingredient> EmptyIngredient::addLeft(std::shared_ptr<Character> character) {
     return character;
 }
 

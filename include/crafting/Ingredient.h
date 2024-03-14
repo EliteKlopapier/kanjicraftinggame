@@ -2,7 +2,6 @@
 #define INGREDIENT_H
 
 #include "Bitmap.h"
-#include "Character.h"
 #include <string>
 #include <memory>
 
@@ -24,19 +23,19 @@ public:
     /**
      * @brief Add a character to the left of the ingredient.
     */
-    virtual std::shared_ptr<Ingredient> addLeft(std::shared_ptr<Character> character) const = 0;
+    virtual std::shared_ptr<Ingredient> addLeft(std::shared_ptr<Character> character) = 0;
     /**
      * @brief Add a character to the right of the ingredient.
     */	
-    virtual std::shared_ptr<Ingredient> addRight(std::shared_ptr<Character> character) const = 0;	
+    virtual std::shared_ptr<Ingredient> addRight(std::shared_ptr<Character> character) = 0;	
     /**
      * @brief Add a character above the ingredient.
     */	
-    virtual std::shared_ptr<Ingredient> addAbove(std::shared_ptr<Character> character) const = 0;
+    virtual std::shared_ptr<Ingredient> addAbove(std::shared_ptr<Character> character) = 0;
     /**
      * @brief Add a character below the ingredient.
     */		
-    virtual std::shared_ptr<Ingredient> addBelow(std::shared_ptr<Character> character) const = 0;	
+    virtual std::shared_ptr<Ingredient> addBelow(std::shared_ptr<Character> character) = 0;	
 };
 
 } // namespace crafting
