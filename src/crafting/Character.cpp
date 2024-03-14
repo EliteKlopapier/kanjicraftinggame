@@ -1,5 +1,6 @@
 #include "Character.h"
 #include "byteUtil.h"
+#include "hashMaps.h"
 
 namespace crafting {
 
@@ -90,6 +91,34 @@ rendering::Bitmap Character::render(int width, int height) const {
         throw std::runtime_error("(2) Failed to load character " + std::to_string(mCharacter));
     }
     return rendering::Bitmap(bitmap).placeOnCanvas(width, height);
+}
+
+std::shared_ptr<Ingredient> Character::addLeft(std::shared_ptr<Character> character) {
+    return std::make_shared<Recipe>(U'⿰', 
+                                    std::vector<std::shared_ptr<Ingredient>>{
+                                        std::dynamic_pointer_cast<Ingredient>(character), 
+                                        std::dynamic_pointer_cast<Ingredient>(crafting::getCharacter(this->getCharacter()))});
+}
+
+std::shared_ptr<Ingredient> Character::addRight(std::shared_ptr<Character> character) {
+    return std::make_shared<Recipe>(U'⿰', 
+                                    std::vector<std::shared_ptr<Ingredient>>{
+                                        std::dynamic_pointer_cast<Ingredient>(crafting::getCharacter(this->getCharacter())), 
+                                        std::dynamic_pointer_cast<Ingredient>(character)});
+}
+
+std::shared_ptr<Ingredient> Character::addAbove(std::shared_ptr<Character> character) {
+    return std::make_shared<Recipe>(U'⿱', 
+                                    std::vector<std::shared_ptr<Ingredient>>{
+                                        std::dynamic_pointer_cast<Ingredient>(character), 
+                                        std::dynamic_pointer_cast<Ingredient>(crafting::getCharacter(this->getCharacter()))});
+}
+
+std::shared_ptr<Ingredient> Character::addBelow(std::shared_ptr<Character> character) {
+    return std::make_shared<Recipe>(U'⿱', 
+                                    std::vector<std::shared_ptr<Ingredient>>{
+                                        std::dynamic_pointer_cast<Ingredient>(crafting::getCharacter(this->getCharacter())), 
+                                        std::dynamic_pointer_cast<Ingredient>(character)});
 }
 
 void Character::addRecipe(std::u32string recipeString) {

@@ -28,11 +28,11 @@ Recipe::Recipe(char32_t op, std::initializer_list<std::shared_ptr<Ingredient>> i
     : mIngredients(ingredients) 
     , mOperator(operators[op])
 {
-    if(!op) {
+    if(!mOperator) {
         throw std::runtime_error("Invalid operator character.");
     }
     if(mIngredients.size() != mOperator.num_ingredients) {
-        throw std::runtime_error("Number of ingredients does not match operator");
+        throw std::runtime_error("Number of ingredients does not match operator: " + std::to_string(mOperator.num_ingredients) + " expected, but " + std::to_string(ingredients.size()) + " given.");
     }
     Ingredient* firstIng = mIngredients[0].get();
     if(Character* firstChar = dynamic_cast<Character*>(firstIng)) {
@@ -44,11 +44,11 @@ Recipe::Recipe(char32_t op, const std::vector<std::shared_ptr<Ingredient>>& ingr
     : mIngredients(ingredients)
     , mOperator(operators[op])
 {
-    if(!op) {
+    if(!mOperator) {
         throw std::runtime_error("Invalid operator character.");
     }
     if(mIngredients.size() != mOperator.num_ingredients) {
-        throw std::runtime_error("Number of ingredients does not match operator");
+        throw std::runtime_error("Number of ingredients does not match operator: " + std::to_string(mOperator.num_ingredients) + " expected, but " + std::to_string(ingredients.size()) + " given.");
     }
     Ingredient* firstIng = mIngredients[0].get();
     if(Character* firstChar = dynamic_cast<Character*>(firstIng)) {
@@ -170,6 +170,78 @@ Recipe::operator std::u32string() const {
         recipeString += std::u32string(*mIngredients[i]);
     }
     return recipeString;
+}
+
+std::shared_ptr<Ingredient> Recipe::addLeft(std::shared_ptr<Character> character) {
+    if(mOperator.operator_c == U'⿰') {
+        return std::make_shared<Recipe>(U'⿲',
+                                        std::vector<std::shared_ptr<Ingredient>>{
+                                            std::dynamic_pointer_cast<Ingredient>(character),
+                                            mIngredients[0],
+                                            mIngredients[1]
+                                        });
+    }
+    else {
+        return std::make_shared<Recipe>(U'⿰',
+                                        std::vector<std::shared_ptr<Ingredient>>{
+                                            std::dynamic_pointer_cast<Ingredient>(character),
+                                            std::dynamic_pointer_cast<Ingredient>(shared_from_this())
+                                        });
+    }
+}
+
+std::shared_ptr<Ingredient> Recipe::addRight(std::shared_ptr<Character> character) {
+    if(mOperator.operator_c == U'⿰') {
+        return std::make_shared<Recipe>(U'⿲',
+                                        std::vector<std::shared_ptr<Ingredient>>{
+                                            mIngredients[0],
+                                            mIngredients[1],
+                                            std::dynamic_pointer_cast<Ingredient>(character)
+                                        });
+    }
+    else {
+        return std::make_shared<Recipe>(U'⿰',
+                                        std::vector<std::shared_ptr<Ingredient>>{
+                                            std::dynamic_pointer_cast<Ingredient>(shared_from_this()),
+                                            std::dynamic_pointer_cast<Ingredient>(character)
+                                        });
+    }
+}
+
+std::shared_ptr<Ingredient> Recipe::addAbove(std::shared_ptr<Character> character) {
+    if(mOperator.operator_c == U'⿱') {
+        return std::make_shared<Recipe>(U'⿳',
+                                        std::vector<std::shared_ptr<Ingredient>>{
+                                            std::dynamic_pointer_cast<Ingredient>(character),
+                                            mIngredients[0],
+                                            mIngredients[1]
+                                        });
+    }
+    else {
+        return std::make_shared<Recipe>(U'⿱',
+                                        std::vector<std::shared_ptr<Ingredient>>{
+                                            std::dynamic_pointer_cast<Ingredient>(character),
+                                            std::dynamic_pointer_cast<Ingredient>(shared_from_this())
+                                        });
+    }
+}
+
+std::shared_ptr<Ingredient> Recipe::addBelow(std::shared_ptr<Character> character) {
+    if(mOperator.operator_c == U'⿱') {
+        return std::make_shared<Recipe>(U'⿳',
+                                        std::vector<std::shared_ptr<Ingredient>>{
+                                            mIngredients[0],
+                                            mIngredients[1],
+                                            std::dynamic_pointer_cast<Ingredient>(character)
+                                        });
+    }
+    else {
+        return std::make_shared<Recipe>(U'⿱',
+                                        std::vector<std::shared_ptr<Ingredient>>{
+                                            std::dynamic_pointer_cast<Ingredient>(shared_from_this()),
+                                            std::dynamic_pointer_cast<Ingredient>(character)
+                                        });
+    }
 }
 
 rendering::Bitmap Recipe::render(int width, int height) const {

@@ -6,6 +6,7 @@
 #include "Consumable.h"
 #include "freeTypeStuff.h"
 #include "Bitmap.h"
+#include "EmptyIngredient.h"
 
 using namespace crafting;
 
@@ -21,8 +22,20 @@ int main() {
     //     }
     // }
 
+    std::shared_ptr<Ingredient> r = std::make_shared<EmptyIngredient>();
+    r = r->addLeft(getCharacter(U'乸'));
+    std::cout << "first" << std::endl;
+    r = r->addLeft(getCharacter(U'木'));
+    std::cout << "second" << std::endl;
+    r = r->addAbove(getCharacter(U'𠆢'));
+    std::cout << "third" << std::endl;
+    r->render(200,200).printToFile("test.bmp");
+    std::cout << "fourth" << std::endl;
+
+
+
     //
-    getCharacter(U'乸')->getRecipes()[0].render(200,200).printToFile("test.bmp");
+    //getCharacter(U'乸')->getRecipes()[0].render(200,200).printToFile("test.bmp");
     //getCharacter(U'')->render(200, 200).printToFile("test.bmp");
 
     /*FT_Set_Pixel_Sizes(rendering::fontFace, 200, 200);
