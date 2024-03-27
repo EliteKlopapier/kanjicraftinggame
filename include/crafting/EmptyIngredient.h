@@ -11,7 +11,7 @@ class EmptyIngredient : public Ingredient {
 public:
     bool operator==(const Ingredient& other) const override;
     operator std::u32string() const override;
-    rendering::Bitmap render(int width, int height) const override;
+    rendering::GreyBitmap render(int width, int height) const override;
     std::shared_ptr<Ingredient> addLeft(std::shared_ptr<Character> character) override;
     std::shared_ptr<Ingredient> addRight(std::shared_ptr<Character> character) override;	
     std::shared_ptr<Ingredient> addAbove(std::shared_ptr<Character> character) override;		

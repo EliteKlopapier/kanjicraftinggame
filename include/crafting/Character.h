@@ -42,7 +42,7 @@ public:
     bool operator==(const Character& other) const;
     operator std::u32string() const;
 
-    rendering::Bitmap render(int width, int height) const override;
+    rendering::GreyBitmap render(int width, int height) const override;
 
     std::shared_ptr<Ingredient> addLeft(std::shared_ptr<Character> character) override;
     std::shared_ptr<Ingredient> addRight(std::shared_ptr<Character> character) override;	

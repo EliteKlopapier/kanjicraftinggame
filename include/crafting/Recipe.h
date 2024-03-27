@@ -82,7 +82,7 @@ public:
     std::shared_ptr<Ingredient> addAbove(std::shared_ptr<Character> character) override;
     std::shared_ptr<Ingredient> addBelow(std::shared_ptr<Character> character) override;
 
-    rendering::Bitmap render(int width, int height) const override;
+    rendering::GreyBitmap render(int width, int height) const override;
 };
 
 } // namespace crafting

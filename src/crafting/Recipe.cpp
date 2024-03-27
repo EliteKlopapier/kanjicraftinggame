@@ -244,11 +244,11 @@ std::shared_ptr<Ingredient> Recipe::addBelow(std::shared_ptr<Character> characte
     }
 }
 
-rendering::Bitmap Recipe::render(int width, int height) const {
+rendering::GreyBitmap Recipe::render(int width, int height) const {
     switch(mOperator.operator_c) {
         case U'↔': return mIngredients[0]->render(width, height).mirror();
         case U'↷': return mIngredients[0]->render(width, height).rotate180();
-        case U'⊖': return rendering::Bitmap(width, height); // not intended to be rendered
+        case U'⊖': return rendering::GreyBitmap(width, height); // not intended to be rendered
 		case U'⿰': return mIngredients[0]->render(width/2 + ((width%2) ? 1 : 0), height).joinHorizontally(mIngredients[1]->render(width/2, height));
 		case U'⿱': return mIngredients[0]->render(width, height/2 + ((height%2) ? 1 : 0)).joinVertically(mIngredients[1]->render(width, height/2));
 		case U'⿲': {
@@ -271,7 +271,7 @@ rendering::Bitmap Recipe::render(int width, int height) const {
         case U'⿹': return mIngredients[0]->render(width, height).overlay(mIngredients[1]->render(width*2/3, height*2/3).placeOnCanvas(width, height, 0, height/3));
         case U'⿺': return mIngredients[0]->render(width, height).overlay(mIngredients[1]->render(width*2/3, height*2/3).placeOnCanvas(width, height, width/3, 0));
         case U'⿻': return mIngredients[0]->render(width, height).overlay(mIngredients[1]->render(width, height));
-        default: return rendering::Bitmap(width, height);
+        default: return rendering::GreyBitmap(width, height);
     }
 }
 

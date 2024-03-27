@@ -19,7 +19,7 @@ public:
     /**
      * @brief Render the ingredient as a bitmap with the given dimensions.
     */
-    virtual rendering::Bitmap render(int width, int height) const = 0;
+    virtual rendering::GreyBitmap render(int width, int height) const = 0;
     /**
      * @brief Add a character to the left of the ingredient.
     */

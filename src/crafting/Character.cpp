@@ -58,7 +58,7 @@ void Character::setPlacementFlag(char32_t character, bool value) {
     }
 }
 
-rendering::Bitmap Character::render(int width, int height) const {
+rendering::GreyBitmap Character::render(int width, int height) const {
     FT_Face fontFace;
     if(FT_Get_Char_Index(rendering::fontFaceMain, mCharacter) != 0) {
         fontFace = rendering::fontFaceMain;
@@ -90,7 +90,7 @@ rendering::Bitmap Character::render(int width, int height) const {
     else {
         throw std::runtime_error("(2) Failed to load character " + std::to_string(mCharacter));
     }
-    return rendering::Bitmap(bitmap).placeOnCanvas(width, height);
+    return rendering::GreyBitmap(bitmap).placeOnCanvas(width, height);
 }
 
 std::shared_ptr<Ingredient> Character::addLeft(std::shared_ptr<Character> character) {
