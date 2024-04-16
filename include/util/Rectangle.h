@@ -92,6 +92,29 @@ public:
             return other.to.x >= from.x && other.to.y >= from.y;
         }
     }
+    /**
+     * @brief Moves the rectangle by the given amount.
+    */
+    void move(T x, T y) {
+        from.x += x; from.y += y;
+        to.x += x; to.y += y;
+    }
+    /**
+     * Mirror the rectangle along a given x-axis.
+     * @param axis The x-coordinate of the axis of symmetry.
+    */
+    void mirrorX(T axis) {
+        from.x = 2 * axis - from.x;
+        to.x = 2 * axis - to.x;
+    }
+    /**
+     * Mirror the rectangle along a given y-axis.
+     * @param axis The y-coordinate of the axis of symmetry.
+    */
+    void mirrorY(T axis) {
+        from.y = 2 * axis - from.y;
+        to.y = 2 * axis - to.y;
+    }
 
     const Point<T>& getFrom() const { return from; }
     const Point<T>& getTo() const { return to; }

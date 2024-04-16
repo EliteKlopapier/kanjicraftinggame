@@ -179,6 +179,7 @@ public:
      * @param canvasHeight The height of the canvas.
      * @param x The x-coordinate to place the bitmap at.
      * @param y The y-coordinate to place the bitmap at.
+     * @throws std::invalid_argument If the bitmap does not fit on the canvas.
      * @return A new bitmap with the bitmap placed on the canvas.
     */
     Bitmap<Pixel> placeOnCanvas(int canvasWidth, int canvasHeight, int x, int y) const {

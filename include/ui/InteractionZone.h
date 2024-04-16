@@ -9,13 +9,13 @@ namespace ui {
 
 /**
  * @brief An area on the recipe that can be interacted with.
- * @param T The type of the objects that will be used to interact with the recipe.
+ * @param InputType The type of the objects that will be used to interact with the recipe.
 */
-template<typename T>    
+template<typename InputType>    
 class InteractionZone {
 private:
     util::IRectangle hitbox, highlight;
-    std::function<void(T)> interactFunc;
+    std::function<void(InputType)> interactFunc;
 public:
     /**
      * @brief Construct a new Interaction Zone object.
@@ -25,7 +25,7 @@ public:
     */
     InteractionZone(const util::IRectangle& hitbox, 
                     const util::IRectangle& highlight, 
-                    const std::function<void(T)>& interactFunc)
+                    const std::function<void(InputType)>& interactFunc)
         : hitbox(hitbox)
         , highlight(highlight)
         , interactFunc(interactFunc) {}
@@ -33,17 +33,17 @@ public:
      * Interact with this area.
      * @return Whether the stored function has been executed.
     */
-    bool interact(T t) {
-        interactFunc(t);
+    bool interact(InputType inp) const {
+        interactFunc(inp);
         return true;
     }
     /**
      * Interact with this area on a given point.
      * @return Whether the stored function has been executed.
     */
-    bool interact(util::IPoint p, T t) {
+    bool interact(util::IPoint p, InputType inp) const {
         if(hitbox.contains(p)) {
-            interactFunc(t);
+            interactFunc(inp);
             return true;
         }
         return false;
@@ -52,8 +52,31 @@ public:
      * Interact with this area on a given point.
      * @return Whether the stored function has been executed.
     */
-    bool interact(int x, int y, T t) {
-        return interact(util::IPoint(x,y), t);
+    bool interact(int x, int y, InputType inp) const {
+        return interact(util::IPoint(x,y), inp);
+    }
+    /**
+     * Move the hitbox and highlight area by a given amount.
+    */
+    void move(int x, int y) {
+        hitbox.move(x, y);
+        highlight.move(x, y);
+    }
+    /**
+     * Mirror the hitbox and highlight area along a given x-axis.
+     * @param axis The x-coordinate of the axis of symmetry.
+    */
+    void mirrorX(int axis) {
+        hitbox.mirrorX(axis);
+        highlight.mirrorX(axis);
+    }
+    /**
+     * Mirror the hitbox and highlight area along a given y-axis.
+     * @param axis The y-coordinate of the axis of symmetry.
+    */
+    void mirrorY(int axis) {
+        hitbox.mirrorY(axis);
+        highlight.mirrorY(axis);
     }
     /**
      * @return The area that will be highlighted when the hitbox is hovered over.
@@ -90,7 +113,7 @@ public:
      * Interact with this area.
      * @return Whether the stored function has been executed.
     */
-    bool interact() {
+    bool interact() const {
         interactFunc();
         return true;
     }
@@ -98,7 +121,7 @@ public:
      * Interact with this area on a given point.
      * @return Whether the stored function has been executed.
     */
-    bool interact(util::IPoint p) {
+    bool interact(util::IPoint p) const {
         if(hitbox.contains(p)) {
             interactFunc();
             return true;
@@ -109,8 +132,31 @@ public:
      * Interact with this area on a given point.
      * @return Whether the stored function has been executed.
     */
-    bool interact(int x, int y) {
+    bool interact(int x, int y) const {
         return interact(util::IPoint(x,y));
+    }
+    /**
+     * Move the hitbox and highlight area by a given amount.
+    */
+    void move(int x, int y) {
+        hitbox.move(x, y);
+        highlight.move(x, y);
+    }
+    /**
+     * Mirror the hitbox and highlight area along a given x-axis.
+     * @param axis The x-coordinate of the axis of symmetry.
+    */
+    void mirrorX(int axis) {
+        hitbox.mirrorX(axis);
+        highlight.mirrorX(axis);
+    }
+    /**
+     * Mirror the hitbox and highlight area along a given y-axis.
+     * @param axis The y-coordinate of the axis of symmetry.
+    */
+    void mirrorY(int axis) {
+        hitbox.mirrorY(axis);
+        highlight.mirrorY(axis);
     }
     /**
      * @return The area that will be highlighted when the hitbox is hovered over.
