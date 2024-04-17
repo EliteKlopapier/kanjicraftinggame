@@ -4,6 +4,7 @@
 #include "Ingredient.h"
 #include "Recipe.h"
 #include "Functionality.h"
+#include "byteUtil.h"
 #include <vector>
 
 namespace crafting {
@@ -27,7 +28,13 @@ private:
      * Bit 5: Can be placed like ⿶
      * Bit 6: Can be placed like ⿷
     */
-    uint8_t placementFlags;
+    uint8_t placementFlags = 0;
+    /**
+     * Bit 0: Free space in lower right
+     * Bit 1: Free space in lower left
+     * Bit 2: Free space in upper right
+    */
+    uint8_t glyphFlags = 0;
 public:
     /**
      * @brief Constructs an empty Character object.
@@ -77,6 +84,30 @@ public:
      * @param value The value to set the flag to.
     */
     void setPlacementFlag(char32_t character, bool value);
+    /**
+     * @brief Gets whether the character has free space in the lower right corner.
+    */
+    bool getFreeSpaceInLowerRight() { return glyphFlags & 1; }
+    /**
+     * @brief Sets whether the character has free space in the lower right corner.
+    */
+    void setFreeSpaceInLowerRight(bool freeSpace) { util::setBit(&glyphFlags, 0, freeSpace); }
+    /**
+     * @brief Gets whether the character has free space in the lower left corner.
+    */
+    bool getFreeSpaceInLowerLeft() { return glyphFlags & 2; }
+    /**
+     * @brief Sets whether the character has free space in the lower left corner.
+    */
+    void setFreeSpaceInLowerLeft(bool freeSpace) { util::setBit(&glyphFlags, 1, freeSpace); }
+    /**
+     * @brief Gets whether the character has free space in the upper right corner.
+    */
+    bool getFreeSpaceInUpperRight() { return glyphFlags & 4; }
+    /**
+     * @brief Sets whether the character has free space in the upper right corner.
+    */
+    void setFreeSpaceInUpperRight(bool freeSpace) { util::setBit(&glyphFlags, 2, freeSpace); }
     /**
      * @brief Adds a meaning to the character represented by this object.
     */

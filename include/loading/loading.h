@@ -23,9 +23,19 @@ extern void loadRecipes(std::string path);
 extern void loadMeanings();
 
 /**
+ * @brief Loads hardcoded flags for some characters.
+*/
+extern void loadCharacterFlags();
+
+/**
  * @brief Loads the FreeType library and fonts.
 */
 extern void loadFreeType();
+
+/**
+ * @brief Loads all the data.
+*/
+extern void loadAll();
 
 }
 

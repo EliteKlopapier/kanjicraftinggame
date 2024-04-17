@@ -2,7 +2,6 @@
 #define INTERACTION_ZONE_H
 
 #include "Rectangle.h"
-#include "Character.h"
 #include <functional>
 
 namespace ui {
