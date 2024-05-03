@@ -13,7 +13,7 @@ namespace ui {
 template<typename InputType>    
 class InteractionZone {
 private:
-    util::IRectangle hitbox, highlight;
+    geometry::IRectangle hitbox, highlight;
     std::function<void(InputType)> interactFunc;
 public:
     /**
@@ -22,8 +22,8 @@ public:
      * @param highlight The area that will be highlighted when the hitbox is hovered over.
      * @param interactFunc The function that will be executed upon interaction.
     */
-    InteractionZone(const util::IRectangle& hitbox, 
-                    const util::IRectangle& highlight, 
+    InteractionZone(const geometry::IRectangle& hitbox, 
+                    const geometry::IRectangle& highlight, 
                     const std::function<void(InputType)>& interactFunc)
         : hitbox(hitbox)
         , highlight(highlight)
@@ -40,7 +40,7 @@ public:
      * Interact with this area on a given point.
      * @return Whether the stored function has been executed.
     */
-    bool interact(util::IPoint p, InputType inp) const {
+    bool interact(geometry::IPoint p, InputType inp) const {
         if(hitbox.contains(p)) {
             interactFunc(inp);
             return true;
@@ -52,7 +52,7 @@ public:
      * @return Whether the stored function has been executed.
     */
     bool interact(int x, int y, InputType inp) const {
-        return interact(util::IPoint(x,y), inp);
+        return interact(geometry::IPoint(x,y), inp);
     }
     /**
      * Move the hitbox and highlight area by a given amount.
@@ -80,11 +80,11 @@ public:
     /**
      * @return The area that will be highlighted when the hitbox is hovered over.
     */
-    const util::IRectangle& getHighlight() const { return highlight; }
+    const geometry::IRectangle& getHighlight() const { return highlight; }
     /**
      * @return The area that can be interacted with.
     */
-    const util::IRectangle& getHitbox() const { return hitbox; }
+    const geometry::IRectangle& getHitbox() const { return hitbox; }
 };
 
 /**
@@ -93,7 +93,7 @@ public:
 template<>
 class InteractionZone<void> {
 private:
-    util::IRectangle hitbox, highlight;
+    geometry::IRectangle hitbox, highlight;
     std::function<void()> interactFunc;
 public:
     /**
@@ -102,8 +102,8 @@ public:
      * @param highlight The area that will be highlighted when the hitbox is hovered over.
      * @param interactFunc The function that will be executed upon interaction.
     */
-    InteractionZone(const util::IRectangle& hitbox, 
-                    const util::IRectangle& highlight, 
+    InteractionZone(const geometry::IRectangle& hitbox, 
+                    const geometry::IRectangle& highlight, 
                     const std::function<void()>& interactFunc)
         : hitbox(hitbox)
         , highlight(highlight)
@@ -120,7 +120,7 @@ public:
      * Interact with this area on a given point.
      * @return Whether the stored function has been executed.
     */
-    bool interact(util::IPoint p) const {
+    bool interact(geometry::IPoint p) const {
         if(hitbox.contains(p)) {
             interactFunc();
             return true;
@@ -132,7 +132,7 @@ public:
      * @return Whether the stored function has been executed.
     */
     bool interact(int x, int y) const {
-        return interact(util::IPoint(x,y));
+        return interact(geometry::IPoint(x,y));
     }
     /**
      * Move the hitbox and highlight area by a given amount.
@@ -160,11 +160,11 @@ public:
     /**
      * @return The area that will be highlighted when the hitbox is hovered over.
     */
-    const util::IRectangle& getHighlight() const { return highlight; }
+    const geometry::IRectangle& getHighlight() const { return highlight; }
     /**
      * @return The area that can be interacted with.
     */
-    const util::IRectangle& getHitbox() const { return hitbox; } 
+    const geometry::IRectangle& getHitbox() const { return hitbox; } 
 };
 
 } // namespace ui

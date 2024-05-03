@@ -35,8 +35,8 @@ public:
      * @param highlight The area to highlight when the mouse hovers over the hitbox. Coordinates are relative to the top left corner of the map.
      * @param interactFunc The function to call when the zone is interacted with.
     */
-    void addZone(const util::IRectangle& hitbox, 
-                 const util::IRectangle& highlight, 
+    void addZone(const geometry::IRectangle& hitbox, 
+                 const geometry::IRectangle& highlight, 
                  const std::function<void(InputType)>& interactFunc) {
         /*for(const InteractionZone<InputType>& zone : zones) {
             if(zone.getHitbox().intersects(hitbox)) {
@@ -65,9 +65,9 @@ public:
             return result;
         }
         for(const InteractionZone<InputType>& zone : zones) {
-            if(zone.getHitbox().contains(util::IPoint(mouseX, mouseY))) {
-                util::IPoint from = zone.getHighlight().getFrom();
-                util::IPoint to = zone.getHighlight().getTo();
+            if(zone.getHitbox().contains(geometry::IPoint(mouseX, mouseY))) {
+                geometry::IPoint from = zone.getHighlight().getFrom();
+                geometry::IPoint to = zone.getHighlight().getTo();
                 for(int x = from.x; x < to.x; x++) {
                     for(int y = from.y; y < to.y; y++) {
                         result.setPixel(x, y, HIGHLIGHTING);
@@ -90,7 +90,7 @@ public:
             return false;
         }
         for(const InteractionZone<InputType>& zone : zones) {
-            if(zone.hitbox.contains(util::IPoint(mouseX, mouseY))) {
+            if(zone.hitbox.contains(geometry::IPoint(mouseX, mouseY))) {
                 return zone.interact(input);
             }
         }
@@ -255,8 +255,8 @@ public:
      * @param highlight The area to highlight when the mouse hovers over the hitbox. Coordinates are relative to the top left corner of the map.
      * @param interactFunc The function to call when the zone is interacted with.
     */
-    void addZone(const util::IRectangle& hitbox, 
-                 const util::IRectangle& highlight, 
+    void addZone(const geometry::IRectangle& hitbox, 
+                 const geometry::IRectangle& highlight, 
                  const std::function<void()>& interactFunc) {
         /*for(const InteractionZone<void>& zone : zones) {
             if(zone.getHitbox().intersects(hitbox)) {
@@ -285,9 +285,9 @@ public:
             return result;
         }
         for(const InteractionZone<void>& zone : zones) {
-            if(zone.getHitbox().contains(util::IPoint(mouseX, mouseY))) {
-                util::IPoint from = zone.getHighlight().getFrom();
-                util::IPoint to = zone.getHighlight().getTo();
+            if(zone.getHitbox().contains(geometry::IPoint(mouseX, mouseY))) {
+                geometry::IPoint from = zone.getHighlight().getFrom();
+                geometry::IPoint to = zone.getHighlight().getTo();
                 for(int x = from.x; x < to.x; x++) {
                     for(int y = from.y; y < to.y; y++) {
                         result.setPixel(x, y, HIGHLIGHTING);
@@ -309,7 +309,7 @@ public:
             return false;
         }
         for(const InteractionZone<void>& zone : zones) {
-            if(zone.getHitbox().contains(util::IPoint(mouseX, mouseY))) {
+            if(zone.getHitbox().contains(geometry::IPoint(mouseX, mouseY))) {
                 return zone.interact();
             }
         }

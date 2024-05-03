@@ -1,7 +1,7 @@
 #ifndef POINT_H
 #define POINT_H
 
-namespace util {
+namespace geometry {
     
 /**
  * @brief A point in 2D space.

@@ -4,7 +4,7 @@
 #include "Point.h"
 #include <stdexcept>
 
-namespace util {
+namespace geometry {
     
 /**
  * @brief A rectangle in 2D space.
