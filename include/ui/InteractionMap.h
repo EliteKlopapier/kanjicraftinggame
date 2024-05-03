@@ -65,9 +65,9 @@ public:
             return result;
         }
         for(const InteractionZone<InputType>& zone : zones) {
-            if(zone.getHitbox().contains(geometry::IPoint(mouseX, mouseY))) {
-                geometry::IPoint from = zone.getHighlight().getFrom();
-                geometry::IPoint to = zone.getHighlight().getTo();
+            if(zone.getHitbox().contains(geometry::IVec2(mouseX, mouseY))) {
+                geometry::IVec2 from = zone.getHighlight().getFrom();
+                geometry::IVec2 to = zone.getHighlight().getTo();
                 for(int x = from.x; x < to.x; x++) {
                     for(int y = from.y; y < to.y; y++) {
                         result.setPixel(x, y, HIGHLIGHTING);
@@ -90,7 +90,7 @@ public:
             return false;
         }
         for(const InteractionZone<InputType>& zone : zones) {
-            if(zone.hitbox.contains(geometry::IPoint(mouseX, mouseY))) {
+            if(zone.hitbox.contains(geometry::IVec2(mouseX, mouseY))) {
                 return zone.interact(input);
             }
         }
@@ -285,9 +285,9 @@ public:
             return result;
         }
         for(const InteractionZone<void>& zone : zones) {
-            if(zone.getHitbox().contains(geometry::IPoint(mouseX, mouseY))) {
-                geometry::IPoint from = zone.getHighlight().getFrom();
-                geometry::IPoint to = zone.getHighlight().getTo();
+            if(zone.getHitbox().contains(geometry::IVec2(mouseX, mouseY))) {
+                geometry::IVec2 from = zone.getHighlight().getFrom();
+                geometry::IVec2 to = zone.getHighlight().getTo();
                 for(int x = from.x; x < to.x; x++) {
                     for(int y = from.y; y < to.y; y++) {
                         result.setPixel(x, y, HIGHLIGHTING);
@@ -309,7 +309,7 @@ public:
             return false;
         }
         for(const InteractionZone<void>& zone : zones) {
-            if(zone.getHitbox().contains(geometry::IPoint(mouseX, mouseY))) {
+            if(zone.getHitbox().contains(geometry::IVec2(mouseX, mouseY))) {
                 return zone.interact();
             }
         }

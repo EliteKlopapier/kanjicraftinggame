@@ -40,7 +40,7 @@ public:
      * Interact with this area on a given point.
      * @return Whether the stored function has been executed.
     */
-    bool interact(geometry::IPoint p, InputType inp) const {
+    bool interact(geometry::IVec2 p, InputType inp) const {
         if(hitbox.contains(p)) {
             interactFunc(inp);
             return true;
@@ -52,7 +52,7 @@ public:
      * @return Whether the stored function has been executed.
     */
     bool interact(int x, int y, InputType inp) const {
-        return interact(geometry::IPoint(x,y), inp);
+        return interact(geometry::IVec2(x,y), inp);
     }
     /**
      * Move the hitbox and highlight area by a given amount.
@@ -120,7 +120,7 @@ public:
      * Interact with this area on a given point.
      * @return Whether the stored function has been executed.
     */
-    bool interact(geometry::IPoint p) const {
+    bool interact(geometry::IVec2 p) const {
         if(hitbox.contains(p)) {
             interactFunc();
             return true;
@@ -132,7 +132,7 @@ public:
      * @return Whether the stored function has been executed.
     */
     bool interact(int x, int y) const {
-        return interact(geometry::IPoint(x,y));
+        return interact(geometry::IVec2(x,y));
     }
     /**
      * Move the hitbox and highlight area by a given amount.

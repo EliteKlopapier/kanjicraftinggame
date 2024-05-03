@@ -1,7 +1,7 @@
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
 
-#include "Point.h"
+#include "Vec2.h"
 #include <stdexcept>
 
 namespace geometry {
@@ -13,7 +13,7 @@ namespace geometry {
 template<typename T>
 class Rectangle {
 private:
-    Point<T> from, to;
+    Vec2<T> from, to;
 public:
     /**
      * @brief Constructs a new Rectangle object.
@@ -21,7 +21,7 @@ public:
      * @param to The bottom-right corner of the rectangle.
      * @throws std::invalid_argument If the from point is not above and to the left of the to point.
     */
-    Rectangle(const Point<T>& from, const Point<T>& to) : from(from), to(to) {
+    Rectangle(const Vec2<T>& from, const Vec2<T>& to) : from(from), to(to) {
         if(from.x > to.x || from.y > to.y) {
             throw std::invalid_argument("Invalid rectangle bounds");
         }
@@ -49,9 +49,9 @@ public:
      * @param height The height of the rectangle.
      * @throws std::invalid_argument If the width or height is negative.
     */
-    Rectangle(const Point<T>& position, const T& width, const T& height)
+    Rectangle(const Vec2<T>& position, const T& width, const T& height)
         : from(position)
-        , to(position + Point<T>(width, height)) 
+        , to(position + Vec2<T>(width, height)) 
     {
         if(from.x > to.x || from.y > to.y) {
             throw std::invalid_argument("Invalid rectangle bounds");
@@ -66,7 +66,7 @@ public:
     /**
      * @brief Checks if a point is inside the rectangle.
     */
-    bool contains(const Point<T>& point) const {
+    bool contains(const Vec2<T>& point) const {
         return point.x >= from.x 
             && point.y >= from.y
             && point.x <= to.x
@@ -75,7 +75,7 @@ public:
     /**
      * @brief Checks if a point is strictly inside the rectangle.
     */
-    bool containsStrictly(const Point<T>& point) const {
+    bool containsStrictly(const Vec2<T>& point) const {
         return point.x > from.x 
             && point.y > from.y
             && point.x < to.x
@@ -116,8 +116,8 @@ public:
         to.y = 2 * axis - to.y;
     }
 
-    const Point<T>& getFrom() const { return from; }
-    const Point<T>& getTo() const { return to; }
+    const Vec2<T>& getFrom() const { return from; }
+    const Vec2<T>& getTo() const { return to; }
     T getWidth() const { return to.x - from.x; }
     T getHeight() const { return to.y - from.y; }
     T getArea() const { return getWidth() * getHeight(); }
@@ -130,6 +130,6 @@ typedef Rectangle<long long> LLRectangle;
 typedef Rectangle<float> FRectangle;
 typedef Rectangle<double> DRectangle;
 
-} // namespace util
+} // namespace geometry
 
 #endif // RECTANGLE_H
